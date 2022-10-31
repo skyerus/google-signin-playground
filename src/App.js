@@ -1,6 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
 
+window.handleCredentialResponse = (response) => {
+  fetch("http://localhost:8080/v1/users/google_login", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "id_token": response.credential
+    })
+  })
+}
+
 function App() {
   return (
     <div className="App">
@@ -18,6 +30,11 @@ function App() {
           Learn React
         </a>
       </header>
+      <div id="g_id_onload"
+          data-client_id="513517838296-5flqpk6t125tl5dakn97nci745mh74pj.apps.googleusercontent.com"
+          data-callback="handleCredentialResponse"
+        >
+      </div>
     </div>
   );
 }
